@@ -1,0 +1,236 @@
+{% extends 'layout.html' %}
+
+{% block title %}Beranda - Sistem Pakar Kerusakan Komputer{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="hero-section text-white text-center py-5 mb-5">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1 class="display-3 fw-bold mb-4 animate-up">Komputer Bermasalah?</h1>
+        <p class="lead mb-5 animate-up delay-1">Diagnosa kerusakan komputermu secara mandiri, cepat, dan akurat
+          menggunakan metode Sistem Pakar dengan Certainty Factor.</p>
+        <div class="d-flex justify-content-center gap-3 animate-up delay-2">
+          <a href="#mulai-diagnosa" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+            <i class="bi bi-play-circle me-2"></i>Mulai Diagnosa Sekarang
+          </a>
+          <a href="#cara-kerja" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+            <i class="bi bi-info-circle me-2"></i>Cara Kerja
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Features Section -->
+<section class="container mb-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Mengapa Menggunakan Sistem Ini?</h2>
+    <p class="text-muted">Keunggulan sistem pakar diagnosa komputer kami</p>
+  </div>
+
+  <div class="row text-center g-4">
+    <div class="col-md-4">
+      <div class="feature-card primary">
+        <div class="icon">
+          <i class="bi bi-speedometer2"></i>
+        </div>
+        <h5 class="fw-bold">Cepat & Instan</h5>
+        <p class="text-muted">Dapatkan hasil analisa kerusakan hanya dalam hitungan detik tanpa perlu ke tempat servis.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card success">
+        <div class="icon">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h5 class="fw-bold">Akurasi Tinggi</h5>
+        <p class="text-muted">Menggunakan metode <em>Certainty Factor</em> untuk menghitung tingkat keyakinan diagnosa.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card info">
+        <div class="icon">
+          <i class="bi bi-tools"></i>
+        </div>
+        <h5 class="fw-bold">Solusi Tepat</h5>
+        <p class="text-muted">Mengetahui jenis kerusakan membantu Anda mengambil keputusan perbaikan yang tepat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Diagnosis Methods Section -->
+<section id="mulai-diagnosa" class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Pilih Metode Diagnosa</h2>
+    <p class="text-muted">Sesuaikan dengan kebutuhan informasi yang Anda miliki</p>
+  </div>
+
+  <div class="row justify-content-center g-4">
+    <div class="col-lg-5 col-md-6">
+      <div class="card h-100 shadow border-0 hover-lift">
+        <div class="card-body text-center p-5">
+          <div class="icon-circle bg-primary text-white mb-4">
+            <i class="bi bi-search fs-2"></i>
+          </div>
+          <h3 class="card-title fw-bold">Deteksi Gejala</h3>
+          <h6 class="text-primary mb-3">(Forward Chaining)</h6>
+          <p class="card-text text-muted mb-4">
+            Gunakan metode ini jika Anda <strong>tidak tahu</strong> apa kerusakannya. Cukup pilih gejala-gejala yang
+            muncul (layar mati, bunyi beep, dll), sistem akan menyimpulkan kerusakannya.
+          </p>
+          <div class="d-grid">
+            <a href="{{ url_for('forward') }}" class="btn btn-primary py-3 rounded-pill">
+              <i class="bi bi-arrow-right-circle me-2"></i>Mulai Deteksi Gejala
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-md-6">
+      <div class="card h-100 shadow border-0 hover-lift">
+        <div class="card-body text-center p-5">
+          <div class="icon-circle bg-success text-white mb-4">
+            <i class="bi bi-clipboard-check fs-2"></i>
+          </div>
+          <h3 class="card-title fw-bold">Cek Hipotesa</h3>
+          <h6 class="text-success mb-3">(Backward Chaining)</h6>
+          <p class="card-text text-muted mb-4">
+            Gunakan metode ini jika Anda <strong>sudah curiga</strong> (misal: curiga RAM rusak). Sistem akan menanyakan
+            gejala spesifik untuk memvalidasi kecurigaan Anda.
+          </p>
+          <div class="d-grid">
+            <a href="{{ url_for('backward') }}" class="btn btn-outline-success py-3 rounded-pill">
+              <i class="bi bi-arrow-right-circle me-2"></i>Mulai Cek Hipotesa
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="cara-kerja" class="bg-light py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Cara Kerja Sistem</h2>
+      <p class="text-muted">3 langkah mudah untuk diagnosa kerusakan komputer</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 text-center">
+        <div class="mb-3">
+          <div class="icon-circle bg-primary text-white mx-auto">
+            <span class="fs-3 fw-bold">1</span>
+          </div>
+        </div>
+        <h5>Pilih Metode</h5>
+        <p class="text-muted">Pilih metode diagnosa yang sesuai dengan kebutuhan Anda</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="mb-3">
+          <div class="icon-circle bg-success text-white mx-auto">
+            <span class="fs-3 fw-bold">2</span>
+          </div>
+        </div>
+        <h5>Input Gejala</h5>
+        <p class="text-muted">Masukkan gejala-gejala yang terjadi pada komputer Anda</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="mb-3">
+          <div class="icon-circle bg-info text-white mx-auto">
+            <span class="fs-3 fw-bold">3</span>
+          </div>
+        </div>
+        <h5>Dapatkan Hasil</h5>
+        <p class="text-muted">Lihat hasil diagnosa dan solusi perbaikan yang direkomendasikan</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Statistik Sistem</h2>
+    <p class="text-muted">Kemampuan diagnosa sistem kami</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-3 col-6 text-center">
+      <div class="counter">
+        <h3 class="fw-bold text-primary">{{ kerusakan|length }}</h3>
+        <p class="text-muted">Jenis Kerusakan</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div class="counter">
+        <h3 class="fw-bold text-success">{{ gejala|length }}</h3>
+        <p class="text-muted">Gejala Terdeteksi</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div class="counter">
+        <h3 class="fw-bold text-info">95%</h3>
+        <p class="text-muted">Tingkat Akurasi</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div class="counter">
+        <h3 class="fw-bold text-warning">2</h3>
+        <p class="text-muted">Metode Diagnosa</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Counter animation
+  function animateCounters() {
+    const counters = document.querySelectorAll('.counter h3');
+
+    counters.forEach(counter => {
+      const target = +counter.innerText.replace(/[^0-9.]/g, '');
+      const isPercentage = counter.innerText.includes('%');
+      const increment = target / 100;
+      let current = 0;
+
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.innerText = Math.ceil(current) + (isPercentage ? '%' : '');
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.innerText = target + (isPercentage ? '%' : '');
+        }
+      };
+
+      updateCounter();
+    });
+  }
+
+  // Trigger counter animation when in view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  });
+
+  const counterSection = document.querySelector('.counter');
+  if (counterSection) {
+    observer.observe(counterSection);
+  }
+</script>
+{% endblock %}

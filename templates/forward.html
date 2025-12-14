@@ -1,0 +1,156 @@
+{% extends 'layout.html' %}
+
+{% block title %}Deteksi Gejala - Sistem Pakar{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">Diagnosa Gejala</h1>
+        <p class="text-muted lead">Centang gejala yang dialami komputer Anda untuk mendeteksi kerusakan.</p>
+      </div>
+
+      <div class="card shadow-sm mb-5 d-print-none border-0">
+        <div class="card-body p-4">
+
+          <div class="row align-items-center mb-4 g-3 progress-container">
+            <div class="col-md-6">
+              <div class="d-flex justify-content-between small mb-1">
+                <span class="fw-bold text-primary">Progress Gejala</span>
+                <span id="progress-text">0%</span>
+              </div>
+              <div class="progress">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" id="symptom-search" class="form-control"
+                  placeholder="Cari gejala (misal: layar, bunyi)...">
+              </div>
+            </div>
+          </div>
+
+          <form method="POST" id="diagnosisForm">
+            <div class="row g-3" style="max-height: 450px; overflow-y: auto; padding: 5px;">
+              {% for kode, desc in gejala.items() %}
+              <div class="col-md-6 symptom-item">
+                <div class="symptom-card h-100 d-flex align-items-center">
+                  <div class="form-check w-100 m-0">
+                    <input class="form-check-input" type="checkbox" id="{{ kode }}" name="gejala" value="{{ kode }}" {%
+                      if kode in terpilih %}checked{% endif %}>
+                    <label class="form-check-label w-100 ps-2" for="{{ kode }}" style="cursor: pointer;">
+                      <span class="badge bg-light text-dark border border-secondary me-1">{{ kode }}</span>
+                      {{ desc }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 pt-3 border-top">
+              <a href="{{ url_for('forward') }}" class="btn btn-outline-secondary px-4 rounded-pill">Reset</a>
+              <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+                <i class="bi bi-cpu me-2"></i>Mulai Analisa
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {% if hasil %}
+      <div id="hasil-section" class="animate-up">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-bold border-start border-5 border-primary ps-3 mb-0">Hasil Analisa</h3>
+          <button onclick="window.print()" class="btn btn-dark btn-sm d-print-none rounded-pill">
+            <i class="bi bi-printer me-2"></i>Cetak PDF
+          </button>
+        </div>
+
+        {% for item in hasil %}
+        {% set color_class = 'low' %}
+        {% set text_color = 'text-info' %}
+        {% set label_text = 'Kecil Kemungkinan' %}
+
+        {% if item.cf >= 80 %}
+        {% set color_class = 'high' %}
+        {% set text_color = 'text-danger' %}
+        {% set label_text = 'Sangat Mungkin' %}
+        {% elif item.cf >= 50 %}
+        {% set color_class = 'medium' %}
+        {% set text_color = 'text-warning' %}
+        {% set label_text = 'Mungkin' %}
+        {% endif %}
+
+        <div class="card result-card shadow-sm mb-4 {{ color_class }}">
+          <div class="card-body p-4">
+            <div class="row align-items-center">
+
+              <div class="col-md-8 mb-3 mb-md-0">
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-dark me-2">{{ item.kode }}</span>
+                  <h4 class="card-title fw-bold mb-0">{{ item.nama }}</h4>
+                </div>
+
+                <div class="mb-3">
+                  <small class="text-muted d-block mb-1">Gejala yang terdeteksi:</small>
+                  {% for g in item.gejala_cocok %}
+                  <span class="symptom-badge"><i class="bi bi-check-circle-fill text-success me-1"></i>{{ g }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="col-md-4 text-center border-start-md">
+                <div class="confidence-score {{ text_color }}">{{ item.cf }}%</div>
+                <span class="badge bg-light text-dark border mt-1">{{ label_text }}</span>
+              </div>
+            </div>
+
+            {% if item.solusi %}
+            <div class="mt-4 pt-3 border-top">
+              <button class="btn btn-outline-primary btn-sm w-100 solution-btn collapsed" type="button"
+                data-bs-toggle="collapse" data-bs-target="#solusi-{{ loop.index }}">
+                <i class="bi bi-tools me-2"></i>Lihat Solusi Perbaikan
+              </button>
+
+              <div class="collapse {% if loop.first %}show{% endif %} mt-3" id="solusi-{{ loop.index }}">
+                <div class="solution-box p-3">
+                  <h6 class="fw-bold text-primary mb-2">Langkah Perbaikan:</h6>
+                  <ul class="mb-0 ps-3">
+                    {% for sol in item.solusi %}
+                    <li class="mb-2">{{ sol }}</li>
+                    {% endfor %}
+                  </ul>
+                  <div class="alert alert-info d-flex align-items-center mt-3 mb-0 py-2 small">
+                    <i class="bi bi-info-circle-fill me-2 fs-5"></i>
+                    <div>Jika kerusakan berlanjut, hubungi teknisi profesional.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% elif terpilih %}
+      <div class="alert alert-warning shadow-sm animate-up d-flex align-items-center p-4">
+        <i class="bi bi-exclamation-triangle-fill fs-1 me-3"></i>
+        <div>
+          <h5 class="alert-heading fw-bold">Tidak Ada Hasil Signifikan</h5>
+          <p class="mb-0">Gejala yang Anda pilih belum cukup untuk menyimpulkan kerusakan tertentu. Silakan coba
+            tambahkan detail gejala lain.</p>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

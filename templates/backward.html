@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+
+{% block title %}Cek Hipotesa - Sistem Pakar Kerusakan Komputer{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Header -->
+      <div class="text-center mb-5">
+        <h1 class="fw-bold">Cek Hipotesa Kerusakan</h1>
+        <p class="text-muted">Validasi dugaan kerusakan dengan gejala spesifik</p>
+      </div>
+
+      <!-- Form -->
+      <div class="card shadow-sm d-print-none">
+        <div class="card-header bg-dark text-white">
+          <h4 class="mb-0"><i class="bi bi-clipboard-check me-2"></i>Cek Hipotesa (Backward Chaining)</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST">
+            <!-- Step 1: Select Damage -->
+            <div class="mb-4">
+              <label for="kerusakan" class="form-label fw-bold">
+                <span class="badge bg-primary me-2">1</span>Pilih dugaan kerusakan:
+              </label>
+              <select class="form-select form-select-lg border-primary" name="kerusakan_id"
+                onchange="this.form.submit()">
+                <option value="" disabled selected>-- Pilih Daftar Kerusakan --</option>
+                {% for kode, nama in kerusakan.items() %}
+                <option value="{{ kode }}" {% if kode==selected %}selected{% endif %}>
+                  {{ kode }} - {{ nama }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Step 2: Confirm Symptoms -->
+            {% if selected %}
+            <div class="mb-4 bg-light p-4 rounded border animate-up">
+              <label class="form-label fw-bold mb-3">
+                <span class="badge bg-success me-2">2</span>Apakah komputer mengalami gejala ini?
+              </label>
+              <div class="list-group">
+                {% set aturan = rules_cf.get(selected, []) %}
+                {% for g, cf, weight in aturan %}
+                <label class="list-group-item list-group-item-action d-flex gap-3 align-items-center">
+                  <input class="form-check-input flex-shrink-0" type="checkbox" name="gejala_check" value="{{ g }}"
+                    style="width: 1.5em; height: 1.5em;">
+                  <span class="d-flex flex-column">
+                    <strong class="text-dark">{{ gejala[g] }}</strong>
+                    <small class="text-muted">Indikator Gejala {{ g }} (Bobot: {{ cf }})</small>
+                  </span>
+                  {% if weight == "critical" %}
+                  <span class="badge bg-danger ms-auto">Kritis</span>
+                  {% elif weight == "high" %}
+                  <span class="badge bg-warning ms-auto">Penting</span>
+                  {% endif %}
+                </label>
+                {% endfor %}
+              </div>
+              <button type="submit" class="btn btn-success w-100 mt-4 fw-bold btn-lg">
+                <i class="bi bi-check-lg me-2"></i>Verifikasi Diagnosa
+              </button>
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Results -->
+      {% if hasil %}
+      <div class="card mt-4 shadow animate-up border-{{ hasil.css }}">
+        <div class="card-header bg-{{ hasil.css }} text-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Hasil Analisa: {{ hasil.status }}</h5>
+          <span class="badge bg-white text-{{ hasil.css }} fs-6">{{ hasil.persen }}%</span>
+        </div>
+        <div class="card-body">
+          <div class="text-center my-4">
+            <h3 class="card-title fw-bold">{{ hasil.nama }}</h3>
+            <p class="text-muted">Berdasarkan gejala yang Anda konfirmasi</p>
+
+            <!-- Confidence Level Visualization -->
+            <div class="my-4">
+              <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-{{ hasil.css }}" role="progressbar" aria-valuenow="{{ hasil.persen }}"
+                  aria-valuemin="0" aria-valuemax="100">
+                  {{ hasil.persen }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% if hasil.solusi %}
+          <hr>
+          <div class="alert alert-light border">
+            <h5 class="alert-heading fw-bold">
+              <i class="bi bi-lightbulb me-2"></i>Rekomendasi Perbaikan:
+            </h5>
+            <ol class="mb-0 ps-3">
+              {% for sol in hasil.solusi %}
+              <li class="mb-2">{{ sol }}</li>
+              {% endfor %}
+            </ol>
+            <div class="alert alert-info mt-3 mb-0">
+              <i class="bi bi-info-circle me-2"></i>
+              <small>Jika masalah berlanjut setelah mengikuti solusi ini, disarankan untuk membawa komputer ke teknisi
+                profesional.</small>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="d-grid gap-2 mt-4 d-print-none">
+            <button onclick="window.print()" class="btn btn-outline-dark">
+              <i class="bi bi-printer me-2"></i>Cetak Hasil
+            </button>
+            <a href="{{ url_for('backward') }}" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-2"></i>Cek Hipotesa Lain
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
