@@ -153,14 +153,6 @@ Hasil akhir ditampilkan dalam bentuk **persentase keyakinan**.
 
 ---
 
-## 👨‍💻 Pengembang
-
-- **Nama** : _(isi nama kamu)_
-- **Program Studi** : _(isi prodi)_
-- **Institusi** : _(isi universitas)_
-
----
-
 ## 📄 Lisensi
 
 Proyek ini dibuat untuk **keperluan akademik dan pembelajaran**.
