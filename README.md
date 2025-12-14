@@ -11,6 +11,23 @@ Sistem ini menerapkan metode **Certainty Factor (CF)** untuk menghitung tingkat 
 
 Aplikasi dirancang dengan **antarmuka interaktif**, **responsif**, serta dilengkapi animasi dan fitur pendukung agar mudah digunakan oleh pengguna awam.
 
+## 🖼️ Tampilan Aplikasi
+
+### Halaman Utama
+![Halaman Utama](images/image1.png)
+
+### Proses Diagnosa
+![Proses Diagnosa Forward Chaining](images/image4.png)
+
+### Hasil Diagnosa
+![Hasil Diagnosa Forward Chaining](images/image5.png)
+
+### Proses Diagnosa
+![Proses Diagnosa Backward Chaining](images/image2.png)
+
+### Hasil Diagnosa
+![Hasil Diagnosa Backward Chaining](images/image3.png)
+
 ---
 
 ## 🎯 Tujuan
