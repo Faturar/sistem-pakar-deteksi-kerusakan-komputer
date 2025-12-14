@@ -1,5 +1,3 @@
----
-
 # 🧠 Sistem Pakar Diagnosa Penyakit
 
 Metode **Certainty Factor (CF)** Berbasis Web
