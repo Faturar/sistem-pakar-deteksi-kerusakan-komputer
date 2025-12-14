@@ -142,17 +142,6 @@ Hasil akhir ditampilkan dalam bentuk **persentase keyakinan**.
 
 ---
 
-## 📊 Interpretasi Hasil Diagnosa
-
-- 🔴 **Tinggi** : Tingkat keyakinan tinggi terhadap penyakit
-- 🟡 **Sedang** : Kemungkinan penyakit cukup besar
-- 🔵 **Rendah** : Kemungkinan penyakit rendah
-
-> ⚠️ **Catatan:**
-> Hasil diagnosa bersifat **informasi awal** dan **tidak menggantikan konsultasi dokter**.
-
----
-
 ## 📄 Lisensi
 
 Proyek ini dibuat untuk **keperluan akademik dan pembelajaran**.
