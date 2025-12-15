@@ -406,9 +406,6 @@ class BackwardChaining {
           }
 
           <div class="d-grid gap-2 mt-4 d-print-none">
-            <button onclick="window.print()" class="btn btn-outline-dark">
-              <i class="bi bi-printer me-2"></i>Cetak Hasil
-            </button>
             <button onclick="location.reload()" class="btn btn-outline-secondary">
               <i class="bi bi-arrow-clockwise me-2"></i>Diagnosis Ulang
             </button>
