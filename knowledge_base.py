@@ -1,6 +1,6 @@
-# knowledge_base.py
+# Database Pengetahuan untuk Sistem Pakar Deteksi Kerusakan Komputer
 
-# Data Gejala yang Diperluas
+# Data Gejala
 gejala = {
     "G01": "Layar tidak menyala",
     "G02": "Komputer tidak bisa booting",
@@ -31,15 +31,10 @@ gejala = {
     "G27": "Tidak bisa connect internet",
     "G28": "File corrupt tidak bisa dibuka",
     "G29": "Komputer lambat membuka program",
-    "G30": "Muncul pesan error saat startup",
-    "G31": "Monitor berwarna tidak normal",
-    "G32": "Touchpad tidak berfungsi",
-    "G33": "Bluetooth tidak bisa aktif",
-    "G34": "Kamera laptop tidak aktif",
-    "G35": "Komputer tidak bisa sleep/hibernate"
+    "G30": "Muncul pesan error saat startup"
 }
 
-# Data Kerusakan yang Diperluas
+# Data Kerusakan
 kerusakan = {
     "K01": "Kerusakan Power Supply",
     "K02": "Kerusakan RAM",
@@ -55,12 +50,7 @@ kerusakan = {
     "K12": "Kerusakan Processor",
     "K13": "Kerusakan BIOS/CMOS",
     "K14": "Kerusakan Optical Drive",
-    "K15": "Kerusakan Network Card",
-    "K16": "Kerusakan Sound Card",
-    "K17": "Kerusakan USB Port",
-    "K18": "Kerusakan Software/Driver",
-    "K19": "Kerusakan Touchpad",
-    "K20": "Kerusakan Webcam"
+    "K15": "Kerusakan Network Card"
 }
 
 # Rules dengan Certainty Factor dan Bobot
@@ -96,7 +86,7 @@ rules_cf = {
         ("G08", 0.95, "critical"), 
         ("G14", 0.9, "high"), 
         ("G19", 0.85, "critical"),
-        ("G31", 0.8, "high")
+        ("G21", 0.8, "high")
     ],
     "K06": [
         ("G09", 0.85, "high"), 
@@ -151,33 +141,10 @@ rules_cf = {
         ("G17", 0.9, "critical"), 
         ("G27", 0.85, "high"),
         ("G11", 0.5, "low")
-    ],
-    "K16": [
-        ("G14", 0.95, "critical"), 
-        ("G24", 0.6, "medium")
-    ],
-    "K17": [
-        ("G11", 0.9, "critical"), 
-        ("G12", 0.7, "medium"),
-        ("G33", 0.6, "medium")
-    ],
-    "K18": [
-        ("G24", 0.85, "high"), 
-        ("G30", 0.8, "high"),
-        ("G28", 0.7, "medium"),
-        ("G34", 0.6, "medium")
-    ],
-    "K19": [
-        ("G32", 0.95, "critical"), 
-        ("G12", 0.7, "medium")
-    ],
-    "K20": [
-        ("G34", 0.95, "critical"), 
-        ("G24", 0.5, "low")
     ]
 }
 
-# Data Solusi Perbaikan yang Diperluas
+# Data Solusi Perbaikan
 solusi = {
     "K01": [
         "Periksa kabel power apakah sudah terpasang dengan benar.",
@@ -282,40 +249,5 @@ solusi = {
         "Cek apakah WiFi terdeteksi di device manager.",
         "Reset network settings di Windows.",
         "Ganti network card jika rusak."
-    ],
-    "K16": [
-        "Cek volume mixer apakah tidak mute.",
-        "Update driver sound card.",
-        "Cek speaker/headphone dengan device lain.",
-        "Test sound card dengan diagnostic tool.",
-        "Ganti sound card jika integrated."
-    ],
-    "K17": [
-        "Cek driver USB controller di device manager.",
-        "Uninstall dan reinstall USB root hub.",
-        "Disable power saving untuk USB.",
-        "Update chipset driver.",
-        "Gunakan USB port yang berbeda."
-    ],
-    "K18": [
-        "Uninstall dan reinstall software bermasalah.",
-        "Update semua driver ke versi terbaru.",
-        "Lakukan clean boot untuk troubleshooting.",
-        "Install ulang software jika corrupt.",
-        "Cek compatibility dengan OS."
-    ],
-    "K19": [
-        "Update driver touchpad ke versi terbaru.",
-        "Cek setting touchpad di control panel.",
-        "Disable dan enable touchpad di device manager.",
-        "Bersihkan permukaan touchpad.",
-        "Ganti touchpad jika rusak fisik."
-    ],
-    "K20": [
-        "Cek apakah webcam terdeteksi di device manager.",
-        "Update driver webcam.",
-        "Test webcam dengan aplikasi lain.",
-        "Cek privacy setting apakah webcam di-block.",
-        "Ganti webcam jika integrated dan rusak."
     ]
 }
